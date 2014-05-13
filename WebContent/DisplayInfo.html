@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Display Info- Post on wall</title>
+</head>
+<body>
+<h4> Please select the group</h4>
+<select id="grpname" onchange="choosenGrp()">
+<option>Choose a group</option>
+</select>
+
+ <script>
+ window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : '541538942621096',
+	    cookie     : true,  // enable cookies to allow the server to access 
+	                        // the session
+	    xfbml      : true,  // parse social plugins on this page
+	    version    : 'v2.0' // use version 2.0
+	  });
+	  FB.login(function(){
+		  FB.api(
+				    "/v2.0/me/groups",
+				    function (response) {
+				      if (response && !response.error) {
+				        var obj = response.data;
+
+				        var select = document.getElementById("grpname");
+				        for(var i = 0; i < obj.length; i++) {
+				            var opt = obj[i].name;
+				            var el = document.createElement("option");
+				            el.textContent = opt;
+				            el.value = obj[i].id;
+				            select.appendChild(el);
+				        }
+				//        for( var c = 0; c< obj.length; c++)
+				  //      	{
+				        	
+				    //    	}
+				      }
+				    }
+				);
+	  }, {scope: 'user_groups'});
+	  FB.getLoginStatus(function(response) {
+		//  document.getElementById('status').innerHTML =
+	    //        'Thanks for logging in, !';
+	  });
+	  
+	  };
+	  function choosenGrp()
+	  {
+	 	 document.getElementById('status').innerHTML = grpname.options[grpname.selectedIndex].value;
+	 	 FB.api(
+	 			 "/v2.0/"+grpname.options[grpname.selectedIndex].value,
+	 			 function(response) {
+	 				 if (response && !response.error) {
+	 					 var a = new Date(response.updated_time);
+	 					document.getElementById('status').innerHTML = response.updated_time;
+	 				 }
+	 			 });
+	  }
+	  
+ function checkLoginState() {
+	    FB.getLoginStatus(function(response) {
+	    	document.getElementById('status').innerHTML =
+	            'Thanks for logging in, !';
+	    	window.top.location = "https://www.google.com";
+	    });
+	  }
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div id="status">
+</div>
+    <p> HELLOOOOOO </p>
+
+</body>
+</html>
