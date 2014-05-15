@@ -30,17 +30,23 @@
 				        for(var i = 0; i < obj.length; i++) {
 				            var opt = obj[i].name;
 				            var el = document.createElement("option");
+				            console.log("SSDDSSDSDDSSD");
 				            el.textContent = opt;
 				            el.value = obj[i].id;
 				            select.appendChild(el);
 				        }
-				//        for( var c = 0; c< obj.length; c++)
-				  //      	{
-				        	
-				    //    	}
 				      }
 				    }
 				);
+		/*  FB.api(
+				  "oauth/access_token?client_id=541538942621096&client_secret=f795c4f030cba3ebd1503c4583b2ebc3&grant_type=client_credentials"),
+				  function(response) {
+			  		if(response && !response.error)
+			  		{
+			  			document.getElementById('status').innerHTML = "AAAAAA";
+			  		}
+		  }
+		  );*/
 	  }, {scope: 'user_groups'});
 	  FB.getLoginStatus(function(response) {
 		//  document.getElementById('status').innerHTML =
@@ -55,8 +61,21 @@
 	 			 "/v2.0/"+grpname.options[grpname.selectedIndex].value,
 	 			 function(response) {
 	 				 if (response && !response.error) {
-	 					 var a = new Date(response.updated_time);
-	 					document.getElementById('status').innerHTML = response.updated_time;
+	 					 var a = response.updated_time;
+	 					var da = new Date(a);
+	 					console.log("AAAAAAA");
+	 					document.getElementById('status').innerHTML = a;
+	 					
+	 				 }
+	 			 });
+	 	 FB.api(
+	 			 "/v2.0/541538942621096|8Q97-UlmIJG4h6ut63nfGfASI6E/subscriptions",
+	 			 function(response) {
+	 				document.getElementById('status2').innerHTML = response.error.getError();
+	 				 if (response && !response.error) {
+	 					 var a = response.fields;
+	 					document.getElementById('status2').innerHTML = "AAAAA";
+	 					
 	 				 }
 	 			 });
 	  }
@@ -77,6 +96,8 @@
        }(document, 'script', 'facebook-jssdk'));
     </script>
     <div id="status">
+</div>
+ <div id="status2">
 </div>
     <p> HELLOOOOOO </p>
 
