@@ -9,8 +9,8 @@
 <select id="grpname" onchange="choosenGrp()">
 <option>Choose a group</option>
 </select>
-
  <script>
+
  window.fbAsyncInit = function() {
 	  FB.init({
 	    appId      : '541538942621096',
@@ -25,32 +25,23 @@
 				    function (response) {
 				      if (response && !response.error) {
 				        var obj = response.data;
-
+				
 				        var select = document.getElementById("grpname");
 				        for(var i = 0; i < obj.length; i++) {
 				            var opt = obj[i].name;
 				            var el = document.createElement("option");
-				            console.log("SSDDSSDSDDSSD");
 				            el.textContent = opt;
 				            el.value = obj[i].id;
 				            select.appendChild(el);
+				            
 				        }
 				      }
+				      console.log("Groups");
 				    }
 				);
-		/*  FB.api(
-				  "oauth/access_token?client_id=541538942621096&client_secret=f795c4f030cba3ebd1503c4583b2ebc3&grant_type=client_credentials"),
-				  function(response) {
-			  		if(response && !response.error)
-			  		{
-			  			document.getElementById('status').innerHTML = "AAAAAA";
-			  		}
-		  }
-		  );*/
 	  }, {scope: 'user_groups'});
 	  FB.getLoginStatus(function(response) {
-		//  document.getElementById('status').innerHTML =
-	    //        'Thanks for logging in, !';
+		  console.log("Get Login Status");
 	  });
 	  
 	  };
@@ -63,33 +54,25 @@
 	 				 if (response && !response.error) {
 	 					 var a = response.updated_time;
 	 					var da = new Date(a);
-	 					console.log("AAAAAAA");
 	 					document.getElementById('status').innerHTML = a;
 	 					
 	 				 }
 	 			 });
 	 	 FB.api(
-	 			 "/v2.0/541538942621096|8Q97-UlmIJG4h6ut63nfGfASI6E/subscriptions",
+	 			"/541538942621096/subscriptions/",
 	 			 function(response) {
-	 				document.getElementById('status2').innerHTML = response.error.getError();
+	 				console.log(response);
 	 				 if (response && !response.error) {
-	 					 var a = response.fields;
+	 					// var a = response.fields;
 	 					document.getElementById('status2').innerHTML = "AAAAA";
-	 					
 	 				 }
-	 			 });
-	  }
-	  
- function checkLoginState() {
-	    FB.getLoginStatus(function(response) {
-	    	document.getElementById('status').innerHTML =
-	            'Thanks for logging in, !';
-	    	window.top.location = "https://www.google.com";
-	    });
+	 			 },
+	 			{access_token : "541538942621096|8Q97-UlmIJG4h6ut63nfGfASI6E"});
 	  }
       (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
+         console.log("is this ever opened?");
          js = d.createElement(s); js.id = id;
          js.src = "//connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
@@ -99,7 +82,7 @@
 </div>
  <div id="status2">
 </div>
-    <p> HELLOOOOOO </p>
+    <p> HELLOOOOOooO </p>
 
 </body>
 </html>
