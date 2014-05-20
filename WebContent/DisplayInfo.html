@@ -9,6 +9,11 @@
 <select id="grpname" onchange="choosenGrp()">
 <option>Choose a group</option>
 </select>
+<form action="DisplayInfo.html" method="GET"> 
+	What ya wanna search?:<input type="search" name="searc">
+	Refresh time?:<input type ="search" name="time">
+	<input type="submit" value="Search">
+</form>
  <script>
 
  window.fbAsyncInit = function() {
@@ -43,7 +48,6 @@
 	  FB.getLoginStatus(function(response) {
 		  console.log("Get Login Status");
 	  });
-	  
 	  };
 	  function choosenGrp()
 	  {
@@ -53,22 +57,14 @@
 	 			 function(response) {
 	 				 if (response && !response.error) {
 	 					 var a = response.updated_time;
-	 					var da = new Date(a);
-	 					document.getElementById('status').innerHTML = a;
+	 					var da = Date.parse(a);
+	 					console.log(da);
+	 					document.getElementById('status').innerHTML = gup("searc");
 	 					
 	 				 }
 	 			 });
-	 	 FB.api(
-	 			"/541538942621096/subscriptions/",
-	 			 function(response) {
-	 				console.log(response);
-	 				 if (response && !response.error) {
-	 					// var a = response.fields;
-	 					document.getElementById('status2').innerHTML = "AAAAA";
-	 				 }
-	 			 },
-	 			{access_token : "541538942621096|8Q97-UlmIJG4h6ut63nfGfASI6E"});
 	  }
+	  
       (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
@@ -77,12 +73,27 @@
          js.src = "//connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
+      
+      
+      //Source - http://www.netlobo.com/url_query_string_javascript.html
+      function gup( name )
+      {
+        name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        console.log(name);
+        var regexS = "[\\?&]"+name+"=([^&#]*)";
+        var regex = new RegExp( regexS );
+        var results = regex.exec( window.location.href );
+        console.log(results);
+        if( results == null )
+          return "";
+        else
+          return results[1];
+      }
     </script>
     <div id="status">
 </div>
  <div id="status2">
 </div>
-    <p> HELLOOOOOooO </p>
 
 </body>
 </html>
